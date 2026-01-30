@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shallow and deep shallow copy.</title>
+</head>
+<body>
+  hello world friends.
+  <script>
+    const arr=["top", "bottom", "left"];
+    const arr1=arr;
+    arr1.push("right");
+
+    const obj={
+      name: "dipesh",
+      class: 16
+    }
+
+    let obj1=obj;
+    obj1.class=18
+    console.log("obj is", obj, 'obj1 is', obj1);
+
+    
+    // Spread operator method:
+    obj1={...obj}
+
+
+    // Problem with the shallow copy
+    const obj2={
+      roll:2413,
+      isGood: true,
+      job:"Software",
+      sub:["C", "Js", "Ts"]
+    }
+    const obj3={...obj2};
+    obj3.job="Software Dev";
+    obj3.sub.push("Java")
+    // console.log(obj2);
+    // console.log(obj3);
+    
+    
+    
+    // now we've learn a problem with teh shallow copy The solutino is using with the json method:
+    const obj4={
+      roll:2413,
+      isGood: true,
+      job:"Software",
+      sub:["C", "Js", "Ts"]
+    }
+    const obj5=JSON.parse(JSON.stringify(obj4));
+    obj5.job="Software Dev";
+    obj5.sub.push("Java")
+    console.log(obj4);
+    console.log(obj5);
+
+
+
+  </script>
+</body>
+</html>
