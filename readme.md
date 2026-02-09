@@ -8,3 +8,13 @@
   - Redux First Installtion: 01/21
   - Crate our own redux: 01/22
   - Manage Complex State with js: 01/22
+  - Multiple state with js: 01/23
+  - just basi of combineReducer our own logic: 01/23
+  - Action Creator: 01/23
+  - React Connect Redux: 01/23
+  - making shopping cart: 01/23
+  - Slices on redux: 01/23
+  - Immer on redux: 01/23
+  - Redux ToolKit: 01/24
+  - Make own Redux Toolkit: 01/24
+  
