@@ -77,3 +77,130 @@
   >:warning:   without the immer js, we can achive it but the page will not rerender, behind the scene it working, that's why on react we should do functional programming, due to the state we'll return as it's.
 
   - When we return the same state on react, the screen will not change. 
+
+## I've move both file of teh carts and wishlist to immer js with mutable way of writing code on the redux.
+
+
+
+
+
+
+
+## Redux Toolkit:
+  - the redux is the official or new way of writing redux, also redux team suggest write a redux with redux toolkit not the direct way.
+  - the redux toolkit provide us extra feature top of the redux like createSlices, combineSlices and produce method by default.
+  - it'll comperess our code to 50%.
+  - 
+
+
+## How to use redux toolkit:
+  - The `createSlice` will help us to create a `action types, action creator and reducer` but won't create a slice.
+
+
+  ### Use createSlice:
+    - on the createSlice we'll be passing a function with objects.
+    - the name which will be define of action type name will be a function of the action creator like: `addSingleCart`
+    - initialState which we've to pass a empty state or initial Value.
+    - `reducers` is the object, which on each object we pass teh switch Case case like: `addCart` last thing of switch case.
+    - now we don't need to return anything createSlice handle everything also the produce handle self everything.
+    - just write the logic of mutable way.
+    - after storing the createSlice on somwhere we can get the `.reducer` function which produce by redux toolkit.
+    - the action creator now we can access with: `slice.actions` which it'll make it's own action types, we don't need manual types, 
+    - the action name it'll make like: `name: wishlist, action creator: addWishlist` which it'll make: `wishlist/addWishlist` own.
+    - When we pass on `slice.actions.actionCreator()` it make the action creator.
+
+    ## after the createSlice:
+      - now after wrapping a name, initialState, reducers.
+      - we can remove action type, action creator and reducer
+      - as a action creator we can get with: `slice.actions`
+      - we can export the reducer with: `slice.reducer`
+      >:warning: also can access that function with `toString` on the redux toolkit of the `slice.actions`. also kind of bug or problem on the redux.
+      -  now neither we need to install the react-redux, and neither immer, as redux-toolkit handle everything.
+
+
+  ## Replacement of the createStore and combineStore:
+    -  from redux and shorter way of exporting everything on the all the slices:
+    - for combiging we've done earlier: `createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__?.())`
+    - with have to create a object and also have to connected the devtools, which createStore is deprecated.
+    - now with the `configureStore` which provide by redux it'll handle a devtools, just pass the reducer: `configureStore({reducer})`
+    - the `combineReducers` we've used multiple slices to store on object.
+    - for solution we can pass on reducer directly this way: `configureStore({reducer: {allProductList: productReducer})`
+    - which now we don't need the redux library to use, redux toolkit handle everything.
+    - but redux toolkit behind it's also use a redux.
+    
+
+  ## convert the switch case to object:
+    - as switch case takes the linear time for that we can do fast lookup with object.
+   -  `map = { 200: 'OK', 404: 'Not Found'}, getStatus(code) {return map[code]}`
+
+
+
+
+
+  ## Middleware on redux:
+    - as of now once we dispatch a any action which it goes directly goes to reducer,
+    - we can't do the api call on teh reducer, due to reducer are `pure function` mean when we add same input output will be same.
+    - The reducer must be the predictible for that before a dispatch reach to a reducer we set the middleware.
+    - middlware is the function which runs between the action dispatch between reducer state.
+    - famous middleware examples: `logger, errorhandler`
+
+  ## Imp and use Case of Middleware:
+    - if middleware want, middleware can stop any action before reaching reducer.
+    - on `configureStore` there's teh key of: `middleware` on list of array.
+    - Middleware is the special type of function which have 3 param.
+    - middleware is the curryed version of the function. 
+
+    ## How to use middleware:
+    - with currying function we pass the param of, `store, next, action`
+    - on middleware keys on the configureStore we pass teh callback function like this: `middleware:()=> [logger],
+    - by default if we perform any action the middleware will not dispatch any action mean stop by default any action,
+    - as action will have the type and the payload.
+    - with: `next(action)` mean move forward the action don't stop with passing the action.
+    - we can convert to arrow function of middleware: `logger=(store)=>(next)=>(action)=>next(action)`
+    
+
+    ## where to store a middleware:
+    - it's recommend way to store a all middlewars on separate folder of: `middleware`
+    - with name of the middleware of filename.
+    
+
+    
+
+
+
+## Data Fetching on Redux:
+  - on redux we mainly fetch the data with 4 ways.
+  - Custom api middleware
+  - Thunk
+  - Redux Tookit Query (RTQ)
+  - Saga: Not widely used not need to learn
+
+
+
+  ## Making Api Call Redux:
+    - on the normal react we normally fetch the data on the useEffect.
+    - initially with the help of the useEffect once our data is get we can dispatch our data to the slices
+    - of the action creator we've call the function on the useEffect with the fetch data.
+    - for the loading State, we've to modify the initialState of the product list.
+    - as productList become a object we've to make useSelector with access the object. `useSelector((state)=>state.allProductList.initialList)`
+    - with the `useDispatch` we can perform any action, with while with `useSelector` we can show a data
+
+
+      - for the performance issue we can optimize with only add the list what required.
+
+
+
+
+## Selector on Redux:
+  - with the help of the selector we make the react component more clean.
+  - the useSelector callBack function we pass is the selector.
+  - it's conventional that useSelector not define a inline, on the slice folder define there.
+  - with export this way: `export v=state=>state.allCartList`
+  - and import with: `useSelector(v)` where we've to use the data.
+
+
+  ### Memoize:
+    - when we're returnign the new array with the map, whiich renrender a new data, 
+    - with the help of redux toolkit which provide a one functoin of: `createSelector` we can memoize our code.
+    - when our data is not changing, it'll not rereneder until/unless not changing a data.  
+
